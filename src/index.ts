@@ -194,3 +194,104 @@ createPost({ title: 'a new post title', body: 'a new post body', tags: ['new', '
 
 let posts: Post[] = []
 
+posts.push(newPost)
+
+//--------------------------------------------
+// type alias
+//--------------------------------------------
+
+// example 1 - tuple
+
+type Rgb = [number, number, number]
+
+function getRandomColor(): Rgb {
+    const r = Math.floor(Math.random() * 255)
+    const g = Math.floor(Math.random() * 255)
+    const b = Math.floor(Math.random() * 255)
+
+    return[r, g, b]
+}
+
+const colorOne: Rgb = getRandomColor()
+const colorTwo: Rgb = getRandomColor()
+
+console.log(colorOne, colorTwo)
+
+type User = {
+    name: string,
+    score: number
+}
+
+const firstUser: User = {
+    name: 'Mario',
+    score: 75
+}
+
+function formatUser(user: User): void {
+    console.log(`${user.name} has a score of ${user.score}`)
+}
+
+formatUser(firstUser)
+
+//--------------------------------------------
+// union types
+//--------------------------------------------
+
+let someId: string | number
+
+someId = 1
+someId = '2'
+
+let email: string | null = null
+
+//type Id = number | string
+
+let anotherId: Id
+
+//--------------------------------------------
+// union type pitfall
+//--------------------------------------------
+
+// function swapIdType(id: Id): Id {
+//
+//     parseInt(id)
+//
+//     return id
+// }
+//
+// swapIdType('5')
+
+//--------------------------------------------
+// type guards
+//--------------------------------------------
+
+type Id = number | string
+
+function swapIdType(id: Id) {
+    if (typeof id === 'string') {
+        // can use string methods
+        return parseInt(id)
+    } else if (typeof id === 'number') {
+        // can use number methods
+        return id.toString()
+    }
+}
+
+const idOne = swapIdType(5)
+const idTwo = swapIdType('5')
+
+console.log(idOne, idTwo)
+console.log(idOne, idTwo)
+
+//--------------------------------------------
+// tagged interfaces
+//--------------------------------------------
+
+function logDetails(value: User | Person): void {
+    if (value.type === 'user') {
+        console.log(value.email, value.username)
+    } else if (value.type === 'person') {
+        console.log(value.firstName, value.age)
+
+    }
+}
